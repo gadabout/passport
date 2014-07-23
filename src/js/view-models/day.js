@@ -45,13 +45,14 @@ function Day(date, app) {
     return hours;
   }.bind(this));
 
-  // calculate the max number of columns needed for this day
+  // arrange timeslots nicely
   this.columns = ko.computed(function() {
     var startTime = this.startTime() + ONE_HOUR / 2
       , endTime = this.endTime()
       , columns = 1
       , timeslots = this.timeslots();
 
+    // pass 1: discover the number of columns needed
     for(var currentTime = startTime; currentTime < endTime; currentTime += ONE_HOUR) {
       (function() {
         var overlappingTimeslots = timeslots.filter(function(timeslot) {
@@ -63,15 +64,7 @@ function Day(date, app) {
       }).bind(this)();
     }
 
-    return columns;
-  }.bind(this));
-
-  // place timeslots into columns
-  this.columns.subscribe(function(columns) {
-    var startTime = this.startTime() + ONE_HOUR / 2
-      , endTime = this.endTime()
-      , timeslots = this.timeslots();
-
+    // pass 2: place timeslots into columns
     timeslots.forEach(function(timeslot) {
       timeslot.column(null);
     });
@@ -94,6 +87,8 @@ function Day(date, app) {
         })
       }).bind(this)();
     }
+
+    return columns
   }.bind(this));
 
   this.addTimeslot = function() {
@@ -121,7 +116,6 @@ function Day(date, app) {
   }.bind(this);
 
   this.loadTimeslots = function() {
-    this.timeslots([])
     // GET /api/timeslots?date=YYYY-MM-DD
     $.get(API_HOST + '/api/timeslots?date=' + moment(date * 1000).format('YYYY-MM-DD'), function(timeslots) {
       this.timeslots(timeslots.map(function(tsData) {

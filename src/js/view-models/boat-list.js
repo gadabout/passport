@@ -8,7 +8,7 @@ function BoatList() {
   this.boats = ko.observableArray();
 
   this.addBoat = function() {
-    var name = prompt('Name:', 'Super Skiff')
+    var name = prompt('Name:', 'Amazon Express')
       , capacityRaw = prompt('Capacity:', 4)
       , capacity = parseInt(capacityRaw)
       , params = {boat: {capacity: capacity, name: name}};
