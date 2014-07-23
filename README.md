@@ -32,7 +32,7 @@ Things to note:
 ####POST /api/timeslot - create a timeslot
 * Parameters:
   * timeslot[start_time]
-    * Start time of the timeslot, expressed as a unix timestamp
+    * Start time of the timeslot, expressed as a Unix timestamp
     * Example: 1406052000
   * timeslot[duration]
     * Length of the timeslots in minutes
