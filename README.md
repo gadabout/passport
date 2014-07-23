@@ -1,7 +1,7 @@
 Peek API Challenge: I'm on a Boat
 ==========
 
-Peek works with activity operators who use all sorts of interesting modes of transportation.  For this problem, we're going to design a system for (fictional) Piranha View Tours, which takes its customers in a boat ride down the Amazon River.  
+Peek works with activity operators who use all sorts of interesting modes of transportation.  For this problem, we're going to design a system for (fictional) Piranha View Tours, which takes its customers in a boat ride down the Amazon River.
 
 Piranha View Tours keeps a number of different river boats, and does tours at various times in the day.  We want to create a system that answers a simple question: "What is my availability today?"
 
@@ -32,7 +32,7 @@ Things to note:
 ####POST /api/timeslot - create a timeslot
 * Parameters:
   * timeslot[start_time]
-    * Start time of the timeslot, expressed as a UTC timestamp
+    * Start time of the timeslot, expressed as a unix timestamp
     * Example: 1406052000
   * timeslot[duration]
     * Length of the timeslots in minutes
@@ -60,7 +60,7 @@ Things to note:
     * The name of the boat
     * Example: "Amazon Express"
 * Output:
-  * The created timeslot in JSON format, with the fields above plus a unique ID
+  * The created boat in JSON format, with the fields above plus a unique ID
   * Example: `{ id: def456, capacity: 8, name: "Amazon Express" }`
 
 ####GET /api/boats - list boats
@@ -93,7 +93,7 @@ Things to note:
   * The created booking in JSON format, with the fields above plus a unique ID
   * Example: `{ id: ghi789, timeslot_id: abc123, size: 4 }`
 
-##Test Cases 
+##Test Cases
 This repository contains a client with which you can construct and visualize test cases, as well as a few canned test cases we provide to show expected functionality. Those cases are:
 
 ####Case 1:
@@ -101,95 +101,95 @@ This repository contains a client with which you can construct and visualize tes
 * POST /api/boat, params=`{ capacity: 8, name "Amazon Express" }`
 * POST /api/boat, params=`{ capacity: 4, name "Amazon Express Mini" }`
 * POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
-* POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-2-id> }` 
-* GET /api/timeslots, params=`{ date: '2014-07-22' }` 
-    * correct response is: 
-    
+* POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-2-id> }`
+* GET /api/timeslots, params=`{ date: '2014-07-22' }`
+    * correct response is:
+
         ```json
         [
-          { 
-            id:  <timeslot-1-id>, 
-            start_time: 1406052000, 
-            duration: 120, 
-            availability: 8, 
-            customer_count: 0, 
+          {
+            id:  <timeslot-1-id>,
+            start_time: 1406052000,
+            duration: 120,
+            availability: 8,
+            customer_count: 0,
             boats: [<boat-1-id>, <boat-2-id>]
           }
         ]
         ```
 
 * POST /api/booking, params=`{ timeslot_id: <timeslot-1-id>, size: 6 }`
-* GET /api/timeslots, params=`{ date: "2014-07-22" }` 
+* GET /api/timeslots, params=`{ date: "2014-07-22" }`
     * correct response is:
-    
+
         ```json
         [
-          { 
-            id:  <timeslot-1-id>, 
-            start_time: 1406052000, 
-            duration: 120, 
-            availability: 4, 
-            customer_count: 6, 
+          {
+            id:  <timeslot-1-id>,
+            start_time: 1406052000,
+            duration: 120,
+            availability: 4,
+            customer_count: 6,
             boats: [<boat-1-id>, <boat-2-id>]
           }
         ]
         ```
-  
+
 * Explanation: The first party of six goes on the Amazon Express, leaving 2 slots on that boat and 4 on the other.  The max party you can now handle is four.
 
 ####Case 2:
 * POST /api/timeslot, params=`{ start_time: 1406052000, duration: 120 }`
 * POST /api/timeslot, params=`{ start_time: 1406055600, duration: 120 }`
-* POST /api/boat, params=`{ capacity: 8, name: "Amazon Express" }` 
-* POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }` 
-* POST /api/assignment, params=`{ timeslot_id: <timeslot-2-id>, boat_id: <boat-1-id> }` 
-* GET /api/availability, params=`{ date: '2014-07-22' }` 
-    * correct response is: 
-     
+* POST /api/boat, params=`{ capacity: 8, name: "Amazon Express" }`
+* POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
+* POST /api/assignment, params=`{ timeslot_id: <timeslot-2-id>, boat_id: <boat-1-id> }`
+* GET /api/availability, params=`{ date: '2014-07-22' }`
+    * correct response is:
+
         ```json
         [
-          { 
-            id:  <timeslot-1-id>, 
-            start_time: 1406052000, 
-            duration: 120, 
-            availability: 8, 
-            customer_count: 0, 
-            boats: [<boat-1-id>] 
-          }, 
-          { 
-            id:  <timeslot-2-id>, 
-            start_time: 1406052000, 
-            duration: 120, 
-            availability: 8, 
-            customer_count: 0, 
-            boats: [<boat-1-id>] 
+          {
+            id:  <timeslot-1-id>,
+            start_time: 1406052000,
+            duration: 120,
+            availability: 8,
+            customer_count: 0,
+            boats: [<boat-1-id>]
+          },
+          {
+            id:  <timeslot-2-id>,
+            start_time: 1406052000,
+            duration: 120,
+            availability: 8,
+            customer_count: 0,
+            boats: [<boat-1-id>]
           }
         ]
         ```
 
 * POST /api/booking, params=`{ timeslot_id: <timeslot-2-id>, size: 2 }`
 * GET /api/availability, params=`{ date: '2014-07-22' }`
-  * correct response is: 
-  
+  * correct response is:
+
       ```json
       [
-        { 
-          id:  <timeslot-1-id>, 
-          start_time: 1406052000, 
-          duration: 120, 
-          availability: 0, 
-          customer_count: 0, 
-          boats: [<boat-1-id>] 
-        }, 
-        { 
-          id:  <timeslot-2-id>, 
-          start_time: 1406052000, 
-          duration: 120, 
-          availability: 6, 
-          customer_count: 2, 
-          boats: [<boat-1-id>] 
+        {
+          id:  <timeslot-1-id>,
+          start_time: 1406052000,
+          duration: 120,
+          availability: 0,
+          customer_count: 0,
+          boats: [<boat-1-id>]
+        },
+        {
+          id:  <timeslot-2-id>,
+          start_time: 1406052000,
+          duration: 120,
+          availability: 6,
+          customer_count: 2,
+          boats: [<boat-1-id>]
         }
       ]
       ```
-  
+
 * Explanation: Once you book against the second timeslot, it is now using the boat.  It gets the boat's remaining capacity, leaving the other timeslot without a boat and unbookable.

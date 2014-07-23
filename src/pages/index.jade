@@ -26,7 +26,7 @@ block content
           .timeslots(data-bind='foreach: timeslots')
             .timeslot(data-bind='style: styles')
               span.badge.availability(data-bind='text: availability, css: {full: full}')
-              span.badge.bookings(data-bind='text: bookedCount')
+              span.badge.bookings(data-bind='text: customerCount')
               span(data-bind='foreach: boats')
                 span.badge.boat(data-bind='text: name')
               select(data-bind='value: boatIdToAssign')
