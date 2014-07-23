@@ -13,7 +13,7 @@ function Timeslot(data, day) {
   this.duration = ko.observable(data.duration);   // duration in minutes
 
   this.availability = ko.observable(data.availability)
-  this.bookedCount = ko.observable(data.booked_count)
+  this.customerCount = ko.observable(data.customer_count)
   this.boatIds = ko.observableArray(data.boats)
 
   this.boatIdToAssign = ko.observable()
