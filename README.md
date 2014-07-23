@@ -50,6 +50,8 @@ Things to note:
 * Output:
   * An array of timeslots in JSON format, in the same format as above
   * Example: `[{ id: abc123, start_time: 1406052000, duration: 120, availability: 4, customer_count: 4, boats: ['def456',...] }, ...]`
+  * The customer count is the total number of customers booked for this timeslot.
+  * The availability is the maximum booking size of any new booking on this timeslot. (See case 1 below)
 
 ####POST /api/boat - create a boat
 * Parameters:
@@ -94,7 +96,7 @@ Things to note:
   * Example: `{ id: ghi789, timeslot_id: abc123, size: 4 }`
 
 ##Test Cases
-This repository contains a client with which you can construct and visualize test cases, as well as a few canned test cases we provide to show expected functionality. Those cases are:
+This repository contains a client with which you can construct and visualize test cases.  To get you started, here are a couple basic cases you'll want to handle: 
 
 ####Case 1:
 * POST /api/timeslot, params=`{ start_time: 1406052000, duration, 120 }`
