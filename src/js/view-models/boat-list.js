@@ -1,6 +1,5 @@
 var ko = require('knockout')
   , client = require('superagent')
-  , uuid = require('../lib/uuid')
   , UNKNOWN_BOAT = {id: null, capacity: 0, name: 'Unknown Boat'}
   , API_HOST = require('../config/app').API_HOST;
 

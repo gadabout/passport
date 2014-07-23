@@ -8339,7 +8339,7 @@ window.app = app; // for debugging
 
 ko.applyBindings(app);
 
-},{"./view-models/app":11,"knockout":1}],8:[function(require,module,exports){
+},{"./view-models/app":9,"knockout":1}],8:[function(require,module,exports){
 function djb2Code(str){
   var hash = 5381;
   for (var i = 0; i < str.length; i++) {
@@ -8352,26 +8352,6 @@ function djb2Code(str){
 module.exports = djb2Code;
 
 },{}],9:[function(require,module,exports){
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-module.exports = randomInt;
-
-},{}],10:[function(require,module,exports){
-function s4() {
-  return Math.floor((1 + Math.random()) * 0x10000)
-             .toString(16)
-             .substring(1);
-}
-
-function uuid() {
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
-
-module.exports = uuid;
-
-},{}],11:[function(require,module,exports){
 var ko = require('knockout')
   , moment = require('moment')
   , Day = require('./day')
@@ -8405,10 +8385,9 @@ function App() {
 
 module.exports = App;
 
-},{"./boat-list":12,"./day":13,"knockout":1,"moment":2}],12:[function(require,module,exports){
+},{"./boat-list":10,"./day":11,"knockout":1,"moment":2}],10:[function(require,module,exports){
 var ko = require('knockout')
   , client = require('superagent')
-  , uuid = require('../lib/uuid')
   , UNKNOWN_BOAT = {id: null, capacity: 0, name: 'Unknown Boat'}
   , API_HOST = require('../config/app').API_HOST;
 
@@ -8444,12 +8423,10 @@ function BoatList() {
 
 module.exports = BoatList;
 
-},{"../config/app":6,"../lib/uuid":10,"knockout":1,"superagent":3}],13:[function(require,module,exports){
+},{"../config/app":6,"knockout":1,"superagent":3}],11:[function(require,module,exports){
 var ko = require('knockout')
   , moment = require('moment')
   , Timeslot = require('./timeslot')
-  , uuid = require('../lib/uuid')
-  , randomInt = require('../lib/random-int')
   , API_HOST = require('../config/app').API_HOST
   , DEFAULT_START_HOUR = 8
   , DEFAULT_END_HOUR = 20
@@ -8583,12 +8560,10 @@ function Day(date, app) {
 
 module.exports = Day;
 
-},{"../config/app":6,"../lib/random-int":9,"../lib/uuid":10,"./timeslot":14,"knockout":1,"moment":2}],14:[function(require,module,exports){
+},{"../config/app":6,"./timeslot":12,"knockout":1,"moment":2}],12:[function(require,module,exports){
 var ko = require('knockout')
   , moment = require('moment')
   , hash = require('../lib/djb2')
-  , uuid = require('../lib/uuid')
-  , randomInt = require('../lib/random-int')
   , API_HOST = require('../config/app').API_HOST
   , HOUR_HEIGHT = 55
   , DAY_WIDTH = 398
@@ -8691,4 +8666,4 @@ function Timeslot(data, day) {
 
 module.exports = Timeslot;
 
-},{"../config/app":6,"../lib/djb2":8,"../lib/random-int":9,"../lib/uuid":10,"knockout":1,"moment":2}]},{},[7])
+},{"../config/app":6,"../lib/djb2":8,"knockout":1,"moment":2}]},{},[7])

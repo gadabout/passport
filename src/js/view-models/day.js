@@ -1,8 +1,6 @@
 var ko = require('knockout')
   , moment = require('moment')
   , Timeslot = require('./timeslot')
-  , uuid = require('../lib/uuid')
-  , randomInt = require('../lib/random-int')
   , API_HOST = require('../config/app').API_HOST
   , DEFAULT_START_HOUR = 8
   , DEFAULT_END_HOUR = 20

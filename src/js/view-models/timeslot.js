@@ -1,8 +1,6 @@
 var ko = require('knockout')
   , moment = require('moment')
   , hash = require('../lib/djb2')
-  , uuid = require('../lib/uuid')
-  , randomInt = require('../lib/random-int')
   , API_HOST = require('../config/app').API_HOST
   , HOUR_HEIGHT = 55
   , DAY_WIDTH = 398
