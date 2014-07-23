@@ -65,6 +65,7 @@ gulp.task('build', ['jade', 'less', 'js', 'vendor-js'])
 gulp.task('server', function(next) {
   var connect = require('connect')
     , server = connect()
+  console.log('Starting static file server on port', PORT)
   server.use(connect.static(DEST)).listen(PORT, next)
 })
 
