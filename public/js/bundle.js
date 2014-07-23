@@ -8547,6 +8547,7 @@ function Day(date, app) {
   }.bind(this);
 
   this.loadTimeslots = function() {
+    this.timeslots([])
     // GET /api/timeslots?date=YYYY-MM-DD
     $.get(API_HOST + '/api/timeslots?date=' + moment(date * 1000).format('YYYY-MM-DD'), function(timeslots) {
       this.timeslots(timeslots.map(function(tsData) {
