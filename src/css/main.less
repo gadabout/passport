@@ -1,0 +1,68 @@
+@import 'bootstrap';
+
+@hour-height: 55px;
+@gutter-width: 50px;
+@day-width: 400px;
+
+.day-header {
+  strong {
+    padding-left: 1em;
+  }
+
+  .btn-group:first-child {
+    margin-right: 1em;
+  }
+}
+
+.day-wrapper {
+  width: @gutter-width + @day-width;
+
+  .day-gutter {
+    display: inline-block;
+    width: @gutter-width;
+    vertical-align: top;
+    border: 1px solid gray;
+    border-right: none;
+  }
+
+  .day {
+    display: inline-block;
+    width: @day-width;
+    border: 1px solid gray;
+    position: relative;
+
+    .timeslot {
+      position: absolute;
+      padding: 5px;
+
+      .badge {
+        &.availability {
+          background-color: green;
+        }
+
+        &.bookings {
+          background-color: blue;
+        }
+
+        &.boat {
+          background-color: black;
+        }
+
+        &.full {
+          background-color: red;
+        }
+      }
+    }
+  }
+
+  .hour {
+    height: @hour-height;
+    border-bottom: 1px solid #f0f0f0;
+    color: #aaa;
+    padding-left: 2px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
