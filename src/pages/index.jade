@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  .row-fluid
+    .col-sm-2(data-bind='with: boatList')
+      p: strong Boats
+      ul.list-group(data-bind='foreach: boats')
+        li.list-group-item
+          span.badge(data-bind='text: capacity')
+          span(data-bind='text: name')
+
+      button.btn.btn-primary(data-bind='click: addBoat') Add Boat
+
+    .col-sm-10
+      p.day-header
+        span.btn-group
+          button.btn.btn-primary(data-bind='click: day().addTimeslot') Schedule Tour
+        span.btn-group
+          button.btn.btn-default(data-bind='click: prevDay') &lt;
+          button.btn.btn-default(data-bind='click: nextDay') &gt;
+        strong(data-bind='text: currentDayFormatted')
+      .day-wrapper(data-bind='with: day')
+        .day-gutter(data-bind='foreach: hours')
+          .hour(data-bind='text: $data')
+        .day
+          .timeslots(data-bind='foreach: timeslots')
+            .timeslot(data-bind='style: styles')
+              span.badge.availability(data-bind='text: availability, css: {full: full}')
+              span.badge.bookings(data-bind='text: bookedCount')
+              span(data-bind='foreach: boats')
+                span.badge.boat(data-bind='text: name')
+              select(data-bind='value: boatIdToAssign')
+                option Assign Boat
+                optgroup(label='Available Boats:', data-bind='foreach: $root.boatList.boats')
+                  option(data-bind='attr: {value: id}, text: name')
+              span.btn-group
+                button.btn.btn-xs.btn-default(data-bind='click: addBooking') book
+          .hours(data-bind='foreach: hours')
+            .hour
