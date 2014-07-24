@@ -25,6 +25,7 @@ Things to note:
 * The expected time for this project is 6-8 hours.  You should start with the basic requirements, and branch out from there.  Keep in mind this is just a demo and doesn't have to be a fully-featured piece of code!
 * We give you a few basic use cases below, but we'll test against many others.
 * The API below is just a suggestion, and will work out of the box with our visualization tool.  If you have a different vision of an API to solve this problem, feel free to modify our spec and let us know what changes you've made.  The only absolute requirement is that you can properly answer what availability exists at a given time.
+* This is a much-simplified version of something we have implemented at Peek.  What complications can you foresee while doing this exercise?  Would your solution scale?
 * What's your test coverage?
 
 ## API specification
