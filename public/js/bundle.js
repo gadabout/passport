@@ -8356,7 +8356,8 @@ var ko = require('knockout')
   , moment = require('moment')
   , Day = require('./day')
   , BoatList = require('./boat-list')
-  , API_HOST = require('../config/app').API_HOST;
+  , API_HOST = require('../config/app').API_HOST
+  , ONE_HOUR = 60 * 60;
 
 function assert(name, value, test) {
   if (value !== test) {
@@ -8382,15 +8383,24 @@ function App() {
   }.bind(this));
 
   this.prevDay = function() {
-    this.currentDay(this.currentDayMoment().subtract('d', 1).unix());
+    window.location.hash = this.currentDayMoment().subtract('d', 1).format('YYYY-MM-DD');
   };
 
   this.nextDay = function() {
-    this.currentDay(this.currentDayMoment().add('d', 1).unix());
+    window.location.hash = this.currentDayMoment().add('d', 1).format('YYYY-MM-DD');
   };
 
+  this.loadDayFromHash = function() {
+    var date = moment(window.location.hash.substr(1))
+    this.currentDay((date.isValid() ? date : moment()).startOf('day').unix());
+  }
+
+  $(window).on('hashchange', function() {
+    this.loadDayFromHash();
+  }.bind(this));
+
   this.testCase1 = function() {
-    var timeslot1 = {start_time: (this.currentDay() + 8 * 60 * 60), duration: 120}
+    var timeslot1 = {start_time: (this.currentDay() + 8 * ONE_HOUR), duration: 120}
       , boat1 = {capacity: 8, name: 'Amazon Express'}
       , boat2 = {capacity: 4, name: 'Amazon Express Mini'}
       , date = this.currentDayMoment().format('YYYY-MM-DD')
@@ -8464,8 +8474,8 @@ function App() {
   }
 
   this.testCase2 = function() {
-    var timeslot1 = {start_time: (this.currentDay() + 8 * 60 * 60), duration: 120}
-      , timeslot2 = {start_time: (this.currentDay() + 9 * 60 * 60), duration: 120}
+    var timeslot1 = {start_time: (this.currentDay() + 8 * ONE_HOUR), duration: 120}
+      , timeslot2 = {start_time: (this.currentDay() + 9 * ONE_HOUR), duration: 120}
       , boat1 = {capacity: 8, name: 'Amazon Express'}
       , date = this.currentDayMoment().format('YYYY-MM-DD')
       , boatList = this.boatList
