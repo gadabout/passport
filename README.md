@@ -108,9 +108,9 @@ We have included in this repository a client you can run to visualize and test a
 This repository contains a client with which you can construct and visualize test cases.  To get you started, here are a couple basic cases you'll want to handle:
 
 ####Case 1:
-* POST /api/timeslot, params=`{ start_time: 1406052000, duration, 120 }`
-* POST /api/boat, params=`{ capacity: 8, name "Amazon Express" }`
-* POST /api/boat, params=`{ capacity: 4, name "Amazon Express Mini" }`
+* POST /api/timeslot, params=`{ start_time: 1406052000, duration: 120 }`
+* POST /api/boat, params=`{ capacity: 8, name: "Amazon Express" }`
+* POST /api/boat, params=`{ capacity: 4, name: "Amazon Express Mini" }`
 * POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
 * POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-2-id> }`
 * GET /api/timeslots, params=`{ date: '2014-07-22' }`
