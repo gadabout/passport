@@ -108,7 +108,7 @@ This repository contains a client with which you can construct and visualize tes
 * GET /api/timeslots, params=`{ date: '2014-07-22' }`
     * correct response is:
 
-        ```json
+        ```
         [
           {
             id:  <timeslot-1-id>,
@@ -125,7 +125,7 @@ This repository contains a client with which you can construct and visualize tes
 * GET /api/timeslots, params=`{ date: "2014-07-22" }`
     * correct response is:
 
-        ```json
+        ```
         [
           {
             id:  <timeslot-1-id>,
@@ -149,7 +149,7 @@ This repository contains a client with which you can construct and visualize tes
 * GET /api/availability, params=`{ date: '2014-07-22' }`
     * correct response is:
 
-        ```json
+        ```
         [
           {
             id:  <timeslot-1-id>,
@@ -174,7 +174,7 @@ This repository contains a client with which you can construct and visualize tes
 * GET /api/availability, params=`{ date: '2014-07-22' }`
   * correct response is:
 
-      ```json
+      ```
       [
         {
           id:  <timeslot-1-id>,
