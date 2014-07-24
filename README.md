@@ -1,7 +1,7 @@
 Peek API Challenge: I'm on a Boat
 ==========
 
-Peek works with activity operators who use all sorts of interesting modes of transportation.  For this problem, we're going to design a system for (fictional) Piranha View Tours, which takes its customers in a boat ride down the Amazon River.
+Peek works with activity operators who use all sorts of interesting modes of transportation.  For this problem, we're going to design a system for (fictional) Piranha View Tours, which takes its customers on a boat ride down the Amazon River.
 
 Piranha View Tours keeps a number of different river boats, and does tours at various times in the day.  We want to create a system that answers a simple question: "What is my availability today?"
 
@@ -97,7 +97,7 @@ Things to note:
   * Example: `{ id: ghi789, timeslot_id: abc123, size: 4 }`
 
 ##Test Cases
-This repository contains a client with which you can construct and visualize test cases.  To get you started, here are a couple basic cases you'll want to handle: 
+This repository contains a client with which you can construct and visualize test cases.  To get you started, here are a couple basic cases you'll want to handle:
 
 ####Case 1:
 * POST /api/timeslot, params=`{ start_time: 1406052000, duration, 120 }`
