@@ -26,7 +26,15 @@ Things to note:
 * We give you a few basic use cases below, but we'll test against many others.
 * The API below is just a suggestion, and will work out of the box with our visualization tool.  If you have a different vision of an API to solve this problem, feel free to modify our spec and let us know what changes you've made.  The only absolute requirement is that you can properly answer what availability exists at a given time.
 * This is a much-simplified version of something we have implemented at Peek.  What complications can you foresee while doing this exercise?  Would your solution scale?
-* What's your test coverage?
+* A test suite that checks some interesting use cases is highly encouraged.
+
+## Running the scheduling client
+
+We have included in this repository a client you can run to visualize and test all the calls defined below.  The client is a node app that runs on port 3333 and functions purely in Javascript.  You shouldn't have to edit it at all if you run your API on port 3000.  Here's how to get it running:
+  * git clone this repo to your local box
+  * do npm install in the passport home directory
+  * do npm start in the passport home directory
+  * visit http://localhost:3333
 
 ## API specification
 
