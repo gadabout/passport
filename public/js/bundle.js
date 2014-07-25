@@ -8399,6 +8399,8 @@ function App() {
     this.loadDayFromHash();
   }.bind(this));
 
+  this.loadDayFromHash();
+
   this.testCase1 = function() {
     var timeslot1 = {start_time: (this.currentDay() + 8 * ONE_HOUR), duration: 120}
       , boat1 = {capacity: 8, name: 'Amazon Express'}
@@ -8636,7 +8638,7 @@ function Day(date, app) {
   }.bind(this));
 
   // arrange timeslots nicely
-  this.columns = ko.computed(function() {
+  ko.computed(function() {
     var startTime = this.startTime() + ONE_HOUR / 2
       , endTime = this.endTime()
       , columns = 1
@@ -8657,6 +8659,7 @@ function Day(date, app) {
     // pass 2: place timeslots into columns
     timeslots.forEach(function(timeslot) {
       timeslot.column(null);
+      timeslot.columns(columns);
     });
 
     for(var currentTime = startTime; currentTime < endTime; currentTime += ONE_HOUR) {
@@ -8677,8 +8680,6 @@ function Day(date, app) {
         })
       }).bind(this)();
     }
-
-    return columns
   }.bind(this));
 
   this.addTimeslot = function() {
@@ -8744,6 +8745,7 @@ function Timeslot(data, day) {
 
   // for arranging properly
   this.column = ko.observable(1);
+  this.columns = ko.observable(1);
 
   this.endTime = ko.computed(function() {
     return this.startTime() + this.duration() * 60;
@@ -8759,7 +8761,7 @@ function Timeslot(data, day) {
   }.bind(this));
 
   this.width = ko.computed(function() {
-    return DAY_WIDTH / day.columns() - 4;
+    return DAY_WIDTH / this.columns() - 4;
   }.bind(this));
 
   this.left = ko.computed(function() {
@@ -8806,21 +8808,21 @@ function Timeslot(data, day) {
     });
   }
 
-  this.boatIdToAssign.subscribe(function(boatId) {
-    var params = {
-      assignment: {
-        timeslot_id: this.id,
-        boat_id: boatId
-      }
-    };
+  this.assignBoat = function(boat) {
+    return function() {
+      var params = {
+        assignment: {
+          timeslot_id: this.id,
+          boat_id: boat.id
+        }
+      };
 
-    if (boatId) {
       // POST /api/assignments
       $.post(API_HOST + '/api/assignments', params, function() {
         day.loadTimeslots();
       }.bind(this));
-    }
-  }.bind(this));
+    }.bind(this);
+  };
 }
 
 module.exports = Timeslot;

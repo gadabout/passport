@@ -45,6 +45,8 @@ function App() {
     this.loadDayFromHash();
   }.bind(this));
 
+  this.loadDayFromHash();
+
   this.testCase1 = function() {
     var timeslot1 = {start_time: (this.currentDay() + 8 * ONE_HOUR), duration: 120}
       , boat1 = {capacity: 8, name: 'Amazon Express'}
