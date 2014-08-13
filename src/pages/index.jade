@@ -2,14 +2,25 @@ extends ../layout
 
 block content
   .row-fluid
-    .col-sm-2(data-bind='with: boatList')
-      p: strong Boats
-      ul.list-group(data-bind='foreach: boats')
-        li.list-group-item
-          span.badge(data-bind='text: capacity')
-          span(data-bind='text: name')
+    .col-sm-2
 
-      button.btn.btn-primary(data-bind='click: addBoat') Add Boat
+      .boats(data-bind='with: boatList')
+        p: strong Boats:
+        ul.list-group(data-bind='foreach: boats')
+          li.list-group-item
+            span.badge(data-bind='text: capacity')
+            span(data-bind='text: name')
+
+        button.btn.btn-primary(data-bind='click: addBoat') Add Boat
+
+      hr
+
+      .testCases
+        p: strong Test Cases:
+        p.text-muted Note: Do these on an blank day. See the README for details on what they're doing.
+        .btn-group
+          button.btn.btn-default(data-bind='click: testCase1') Case 1
+          button.btn.btn-default(data-bind='click: testCase2') Case 2
 
     .col-sm-10
       p.day-header
@@ -33,7 +44,6 @@ block content
                 option Assign Boat
                 optgroup(label='Available Boats:', data-bind='foreach: $root.boatList.boats')
                   option(data-bind='attr: {value: id}, text: name')
-              span.btn-group
-                button.btn.btn-xs.btn-default(data-bind='click: addBooking') book
+              button.btn.btn-xs.btn-default(data-bind='click: addBooking') book
           .hours(data-bind='foreach: hours')
             .hour
