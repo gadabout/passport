@@ -154,7 +154,7 @@ This repository contains a client with which you can construct and visualize tes
 * POST /api/boat, params=`{ capacity: 8, name: "Amazon Express" }`
 * POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
 * POST /api/assignment, params=`{ timeslot_id: <timeslot-2-id>, boat_id: <boat-1-id> }`
-* GET /api/availability, params=`{ date: '2014-07-22' }`
+* GET /api/timeslots, params=`{ date: '2014-07-22' }`
     * correct response is:
 
         ```
@@ -169,7 +169,7 @@ This repository contains a client with which you can construct and visualize tes
           },
           {
             id:  <timeslot-2-id>,
-            start_time: 1406052000,
+            start_time: 1406055600,
             duration: 120,
             availability: 8,
             customer_count: 0,
@@ -179,7 +179,7 @@ This repository contains a client with which you can construct and visualize tes
         ```
 
 * POST /api/booking, params=`{ timeslot_id: <timeslot-2-id>, size: 2 }`
-* GET /api/availability, params=`{ date: '2014-07-22' }`
+* GET /api/timeslots, params=`{ date: '2014-07-22' }`
   * correct response is:
 
       ```
@@ -194,7 +194,7 @@ This repository contains a client with which you can construct and visualize tes
         },
         {
           id:  <timeslot-2-id>,
-          start_time: 1406052000,
+          start_time: 1406055600,
           duration: 120,
           availability: 6,
           customer_count: 2,
