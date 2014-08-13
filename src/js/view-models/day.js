@@ -46,7 +46,7 @@ function Day(date, app) {
   }.bind(this));
 
   // arrange timeslots nicely
-  this.columns = ko.computed(function() {
+  ko.computed(function() {
     var startTime = this.startTime() + ONE_HOUR / 2
       , endTime = this.endTime()
       , columns = 1
@@ -67,6 +67,7 @@ function Day(date, app) {
     // pass 2: place timeslots into columns
     timeslots.forEach(function(timeslot) {
       timeslot.column(null);
+      timeslot.columns(columns);
     });
 
     for(var currentTime = startTime; currentTime < endTime; currentTime += ONE_HOUR) {
@@ -87,8 +88,6 @@ function Day(date, app) {
         })
       }).bind(this)();
     }
-
-    return columns
   }.bind(this));
 
   this.addTimeslot = function() {

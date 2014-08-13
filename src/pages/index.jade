@@ -40,10 +40,12 @@ block content
               span.badge.bookings(data-bind='text: customerCount')
               span(data-bind='foreach: boats')
                 span.badge.boat(data-bind='text: name')
-              select(data-bind='value: boatIdToAssign')
-                option Assign Boat
-                optgroup(label='Available Boats:', data-bind='foreach: $root.boatList.boats')
-                  option(data-bind='attr: {value: id}, text: name')
-              button.btn.btn-xs.btn-default(data-bind='click: addBooking') book
+              .btn-group
+                button.btn.btn-xs.btn-default(data-bind='click: addBooking') book
+                .btn-group
+                  button.btn.btn-xs.btn-default.dropdown-toggle(data-toggle='dropdown')
+                    |assign <span class='caret'></span>
+                  ul.dropdown-menu(data-bind='foreach: $root.boatList.boats')
+                    li: a(href='#' data-bind='text: name, click: $parent.assignBoat($data)')
           .hours(data-bind='foreach: hours')
             .hour

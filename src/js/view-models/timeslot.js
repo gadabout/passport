@@ -22,6 +22,7 @@ function Timeslot(data, day) {
 
   // for arranging properly
   this.column = ko.observable(1);
+  this.columns = ko.observable(1);
 
   this.endTime = ko.computed(function() {
     return this.startTime() + this.duration() * 60;
@@ -37,7 +38,7 @@ function Timeslot(data, day) {
   }.bind(this));
 
   this.width = ko.computed(function() {
-    return DAY_WIDTH / day.columns() - 4;
+    return DAY_WIDTH / this.columns() - 4;
   }.bind(this));
 
   this.left = ko.computed(function() {
@@ -84,21 +85,21 @@ function Timeslot(data, day) {
     });
   }
 
-  this.boatIdToAssign.subscribe(function(boatId) {
-    var params = {
-      assignment: {
-        timeslot_id: this.id,
-        boat_id: boatId
-      }
-    };
+  this.assignBoat = function(boat) {
+    return function() {
+      var params = {
+        assignment: {
+          timeslot_id: this.id,
+          boat_id: boat.id
+        }
+      };
 
-    if (boatId) {
       // POST /api/assignments
       $.post(API_HOST + '/api/assignments', params, function() {
         day.loadTimeslots();
       }.bind(this));
-    }
-  }.bind(this));
+    }.bind(this);
+  };
 }
 
 module.exports = Timeslot;

@@ -8356,7 +8356,8 @@ var ko = require('knockout')
   , moment = require('moment')
   , Day = require('./day')
   , BoatList = require('./boat-list')
-  , API_HOST = require('../config/app').API_HOST;
+  , API_HOST = require('../config/app').API_HOST
+  , ONE_HOUR = 60 * 60;
 
 function assert(name, value, test) {
   if (value !== test) {
@@ -8382,15 +8383,26 @@ function App() {
   }.bind(this));
 
   this.prevDay = function() {
-    this.currentDay(this.currentDayMoment().subtract('d', 1).unix());
+    window.location.hash = this.currentDayMoment().subtract('d', 1).format('YYYY-MM-DD');
   };
 
   this.nextDay = function() {
-    this.currentDay(this.currentDayMoment().add('d', 1).unix());
+    window.location.hash = this.currentDayMoment().add('d', 1).format('YYYY-MM-DD');
   };
 
+  this.loadDayFromHash = function() {
+    var date = moment(window.location.hash.substr(1))
+    this.currentDay((date.isValid() ? date : moment()).startOf('day').unix());
+  }
+
+  $(window).on('hashchange', function() {
+    this.loadDayFromHash();
+  }.bind(this));
+
+  this.loadDayFromHash();
+
   this.testCase1 = function() {
-    var timeslot1 = {start_time: (this.currentDay() + 8 * 60 * 60), duration: 120}
+    var timeslot1 = {start_time: (this.currentDay() + 8 * ONE_HOUR), duration: 120}
       , boat1 = {capacity: 8, name: 'Amazon Express'}
       , boat2 = {capacity: 4, name: 'Amazon Express Mini'}
       , date = this.currentDayMoment().format('YYYY-MM-DD')
@@ -8464,8 +8476,8 @@ function App() {
   }
 
   this.testCase2 = function() {
-    var timeslot1 = {start_time: (this.currentDay() + 8 * 60 * 60), duration: 120}
-      , timeslot2 = {start_time: (this.currentDay() + 9 * 60 * 60), duration: 120}
+    var timeslot1 = {start_time: (this.currentDay() + 8 * ONE_HOUR), duration: 120}
+      , timeslot2 = {start_time: (this.currentDay() + 9 * ONE_HOUR), duration: 120}
       , boat1 = {capacity: 8, name: 'Amazon Express'}
       , date = this.currentDayMoment().format('YYYY-MM-DD')
       , boatList = this.boatList
@@ -8626,7 +8638,7 @@ function Day(date, app) {
   }.bind(this));
 
   // arrange timeslots nicely
-  this.columns = ko.computed(function() {
+  ko.computed(function() {
     var startTime = this.startTime() + ONE_HOUR / 2
       , endTime = this.endTime()
       , columns = 1
@@ -8647,6 +8659,7 @@ function Day(date, app) {
     // pass 2: place timeslots into columns
     timeslots.forEach(function(timeslot) {
       timeslot.column(null);
+      timeslot.columns(columns);
     });
 
     for(var currentTime = startTime; currentTime < endTime; currentTime += ONE_HOUR) {
@@ -8667,8 +8680,6 @@ function Day(date, app) {
         })
       }).bind(this)();
     }
-
-    return columns
   }.bind(this));
 
   this.addTimeslot = function() {
@@ -8734,6 +8745,7 @@ function Timeslot(data, day) {
 
   // for arranging properly
   this.column = ko.observable(1);
+  this.columns = ko.observable(1);
 
   this.endTime = ko.computed(function() {
     return this.startTime() + this.duration() * 60;
@@ -8749,7 +8761,7 @@ function Timeslot(data, day) {
   }.bind(this));
 
   this.width = ko.computed(function() {
-    return DAY_WIDTH / day.columns() - 4;
+    return DAY_WIDTH / this.columns() - 4;
   }.bind(this));
 
   this.left = ko.computed(function() {
@@ -8796,21 +8808,21 @@ function Timeslot(data, day) {
     });
   }
 
-  this.boatIdToAssign.subscribe(function(boatId) {
-    var params = {
-      assignment: {
-        timeslot_id: this.id,
-        boat_id: boatId
-      }
-    };
+  this.assignBoat = function(boat) {
+    return function() {
+      var params = {
+        assignment: {
+          timeslot_id: this.id,
+          boat_id: boat.id
+        }
+      };
 
-    if (boatId) {
       // POST /api/assignments
       $.post(API_HOST + '/api/assignments', params, function() {
         day.loadTimeslots();
       }.bind(this));
-    }
-  }.bind(this));
+    }.bind(this);
+  };
 }
 
 module.exports = Timeslot;
