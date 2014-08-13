@@ -62,7 +62,7 @@ We have included in this repository a client you can run to visualize and test a
   * The customer count is the total number of customers booked for this timeslot.
   * The availability is the maximum booking size of any new booking on this timeslot. (See case 1 below)
 
-####POST /api/boat - create a boat
+####POST /api/boats - create a boat
 * Parameters:
   * boat[capacity]
     * The number of passengers the boat can carry
