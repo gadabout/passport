@@ -101,8 +101,7 @@ We have included in this repository a client you can run to visualize and test a
     * The size of the booking party
     * Example: 4
 * Output:
-  * The created booking in JSON format, with the fields above plus a unique ID
-  * Example: `{ id: ghi789, timeslot_id: abc123, size: 4 }`
+  * none
 
 ##Test Cases
 This repository contains a client with which you can construct and visualize test cases.  To get you started, here are a couple basic cases you'll want to handle:
