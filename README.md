@@ -38,7 +38,7 @@ We have included in this repository a client you can run to visualize and test a
 
 ## API specification
 
-####POST /api/timeslot - create a timeslot
+####POST /api/timeslots - create a timeslot
 * Parameters:
   * timeslot[start_time]
     * Start time of the timeslot, expressed as a Unix timestamp
@@ -81,7 +81,7 @@ We have included in this repository a client you can run to visualize and test a
   * An array of boats in JSON format, in the same format as above
   * Example: `[{ id: def456, capacity: 8, name: "Amazon Express" }, ...]`
 
-####POST /api/assignment - assign boat to timeslot
+####POST /api/assignments - assign boat to timeslot
 * Parameters:
   * assignment[timeslot_id]
     * A valid timeslot id
@@ -92,7 +92,7 @@ We have included in this repository a client you can run to visualize and test a
 * Output:
   * none
 
-####POST /api/booking - create a booking
+####POST /api/bookings - create a booking
 * Parameters:
   * booking[timeslot_id]
     * A valid timeslot id
@@ -101,18 +101,17 @@ We have included in this repository a client you can run to visualize and test a
     * The size of the booking party
     * Example: 4
 * Output:
-  * The created booking in JSON format, with the fields above plus a unique ID
-  * Example: `{ id: ghi789, timeslot_id: abc123, size: 4 }`
+  * none
 
 ##Test Cases
 This repository contains a client with which you can construct and visualize test cases.  To get you started, here are a couple basic cases you'll want to handle:
 
 ####Case 1:
-* POST /api/timeslot, params=`{ start_time: 1406052000, duration: 120 }`
-* POST /api/boat, params=`{ capacity: 8, name: "Amazon Express" }`
-* POST /api/boat, params=`{ capacity: 4, name: "Amazon Express Mini" }`
-* POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
-* POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-2-id> }`
+* POST /api/timeslots, params=`{ start_time: 1406052000, duration: 120 }`
+* POST /api/boats, params=`{ capacity: 8, name: "Amazon Express" }`
+* POST /api/boats, params=`{ capacity: 4, name: "Amazon Express Mini" }`
+* POST /api/assignments, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
+* POST /api/assignments, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-2-id> }`
 * GET /api/timeslots, params=`{ date: '2014-07-22' }`
     * correct response is:
 
@@ -129,7 +128,7 @@ This repository contains a client with which you can construct and visualize tes
         ]
         ```
 
-* POST /api/booking, params=`{ timeslot_id: <timeslot-1-id>, size: 6 }`
+* POST /api/bookings, params=`{ timeslot_id: <timeslot-1-id>, size: 6 }`
 * GET /api/timeslots, params=`{ date: "2014-07-22" }`
     * correct response is:
 
@@ -149,11 +148,11 @@ This repository contains a client with which you can construct and visualize tes
 * Explanation: The first party of six goes on the Amazon Express, leaving 2 slots on that boat and 4 on the other.  The max party you can now handle is four.
 
 ####Case 2:
-* POST /api/timeslot, params=`{ start_time: 1406052000, duration: 120 }`
-* POST /api/timeslot, params=`{ start_time: 1406055600, duration: 120 }`
-* POST /api/boat, params=`{ capacity: 8, name: "Amazon Express" }`
-* POST /api/assignment, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
-* POST /api/assignment, params=`{ timeslot_id: <timeslot-2-id>, boat_id: <boat-1-id> }`
+* POST /api/timeslots, params=`{ start_time: 1406052000, duration: 120 }`
+* POST /api/timeslots, params=`{ start_time: 1406055600, duration: 120 }`
+* POST /api/boats, params=`{ capacity: 8, name: "Amazon Express" }`
+* POST /api/assignments, params=`{ timeslot_id: <timeslot-1-id>, boat_id: <boat-1-id> }`
+* POST /api/assignments, params=`{ timeslot_id: <timeslot-2-id>, boat_id: <boat-1-id> }`
 * GET /api/timeslots, params=`{ date: '2014-07-22' }`
     * correct response is:
 
@@ -178,7 +177,7 @@ This repository contains a client with which you can construct and visualize tes
         ]
         ```
 
-* POST /api/booking, params=`{ timeslot_id: <timeslot-2-id>, size: 2 }`
+* POST /api/bookings, params=`{ timeslot_id: <timeslot-2-id>, size: 2 }`
 * GET /api/timeslots, params=`{ date: '2014-07-22' }`
   * correct response is:
 
