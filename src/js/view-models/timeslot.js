@@ -9,7 +9,7 @@ var ko = require('knockout')
 function Timeslot(data, day) {
   this.id = data.id;
 
-  this.startTime = ko.observable(data.start_time); // unix timestamp
+  this.startTime = ko.observable(parseInt(data.start_time)); // unix timestamp
   this.duration = ko.observable(data.duration);   // duration in minutes
 
   this.availability = ko.observable(data.availability)
