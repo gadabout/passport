@@ -203,3 +203,4 @@ This repository contains a client with which you can construct and visualize tes
       ```
 
 * Explanation: Once you book against the second timeslot, it is now using the boat.  It gets the boat's remaining capacity, leaving the other timeslot without a boat and unbookable.
+
