@@ -36,6 +36,11 @@ We have included in this repository a client you can run to visualize and test a
   * do npm start in the passport home directory
   * visit http://localhost:3333
 
+If you do end up making edits, consider making use of gulp's live-reload
+feature. Use ``npm run-script watch`` as an alternative to ``npm start``.
+N.B.: "watch" terminates early with node 0.10.18 / npm 1.3.8, and latest
+versions of dependencies.
+
 ## API specification
 
 ####POST /api/timeslots - create a timeslot
